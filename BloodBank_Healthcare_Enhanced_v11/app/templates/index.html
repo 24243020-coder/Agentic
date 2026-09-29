@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BloodLink AI | Blood Bank Management</title><link rel="stylesheet" href="/static/style.css"></head>
+<body><div class="shell">
+<aside class="sidebar"><div class="brand"><div class="brand-mark">✚</div><div><b>BloodLink</b><span>Blood Bank Management</span></div></div>
+<nav><button type="button" class="nav active" data-view="dashboard">Dashboard</button><button class="nav" data-view="inventory">Blood Inventory</button>
+<button class="nav" data-view="donors">Donor Network</button><button class="nav" data-view="requests">Blood Requests</button><button class="nav" data-view="agent">Blood Assistant</button></nav>
+<div class="side-card"><span class="pulse"></span><div><b>System Online</b><small>Blood bank services active</small></div></div></aside>
+<main><header class="topbar"><div><div class="eyebrow">HEALTHCARE • BLOOD BANK</div><h1 id="pageTitle">Blood Bank Dashboard</h1></div>
+<button type="button" class="primary" onclick="showView('agent')">Blood Assistant →</button></header>
+
+<section id="dashboard" class="view active"><div class="hero"><div><div class="eyebrow light">REAL-TIME OPERATIONS</div><h2>Every unit can make a difference.</h2><p>Manage inventory, connect donors and coordinate blood requests with a blood-bank assistant.</p></div><div class="hero-orb">✚</div></div>
+<div class="stats"><div class="stat"><span>Total Stock</span><b id="totalUnits">—</b><small>units across all groups</small></div>
+<div class="stat"><span>Available Donors</span><b id="donorCount">—</b><small>ready in donor network</small></div><div class="stat"><span>Pending Requests</span><b id="pendingCount">—</b><small>awaiting staff action</small></div>
+</div>
+<div class="dashboard-grid">
+<div class="panel"><div class="panel-head"><div><h3>Blood Inventory</h3><small>Live stock overview</small></div><button type="button" class="textbtn" onclick="showView('inventory')">View all →</button></div><div id="miniInventory" class="blood-grid"></div></div>
+<div class="panel"><div class="panel-head"><div><h3>Quick Actions</h3><small>Common blood-bank operations</small></div><span class="status-dot">LIVE</span></div>
+<div class="quick-cards">
+<button type="button" onclick="showView('requests')"><span>+</span><b>New Blood Request</b><small>Create and track a request</small></button>
+<button type="button" onclick="showView('donors')"><span>♙</span><b>Find Donors</b><small>Search available donor network</small></button>
+<button type="button" onclick="showView('agent')"><span>✦</span><b>Ask Blood Assistant</b><small>Get an operational answer</small></button>
+</div></div>
+<div class="panel"><div class="panel-head"><div><h3>Recent Requests</h3><small>Latest blood-bank activity</small></div><button type="button" class="textbtn" onclick="showView('requests')">Open →</button></div><div id="dashboardRecent"></div></div>
+<div class="panel"><div class="panel-head"><div><h3>Stock Health</h3><small>Groups needing attention</small></div></div><div id="stockHealth"></div></div>
+</div></section>
+
+<section id="inventory" class="view"><div class="panel"><div class="panel-head"><h3>Blood Inventory</h3><button class="primary small" onclick="refresh()">Refresh</button></div><div id="inventoryTable"></div></div></section>
+<section id="donors" class="view"><div class="grid2"><div class="panel" id="donorFormBox"></div><div class="panel"><div class="panel-head"><div><h3>Donor Network</h3><small>Record donations and manage donor availability</small></div><input id="donorSearch" class="search" placeholder="Search name / group / city..." oninput="renderDonors()"></div><div id="donorTable"></div></div></div></section>
+
+<section id="requests" class="view"><div class="grid2"><div class="panel"><div class="panel-head"><h3>Create Blood Request</h3></div>
+<form id="requestForm"><input name="patient_name" placeholder="Patient name" required><input name="hospital" placeholder="Hospital / medical center" required>
+<div class="row"><select name="blood_group" required><option value="">Blood group</option><option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option></select><input name="units" type="number" min="1" max="20" placeholder="Units" required></div><select id="requestDonor" name="donor_id"><option value="">No donor assigned</option></select>
+<select name="urgency"><option>Routine</option><option>Urgent</option><option>Critical</option></select><button class="primary">Create Request</button></form><div id="formMsg"></div></div>
+<div class="panel"><div class="panel-head"><h3>Recent Requests</h3></div><div id="requestsTable"></div></div></div></section>
+
+<section id="agent" class="view"><div class="agent-layout"><div class="panel chat"><div class="panel-head"><div><h3>BloodLink Blood Assistant</h3><small>Blood bank assistance</small></div><span class="badge">LIVE</span></div>
+<div id="chatMessages" class="messages"><div class="bubble ai"><b>Blood Assistant</b><br>Hi! Ask me “How many O+ units are available?”, “Find O- donors”, or “What is the emergency request policy?”</div></div>
+<div class="chips"><button type="button" onclick="quick('How many O+ units are available?')">Check O+ stock</button><button type="button" onclick="quick('Find O- donors')">Find O- donors</button><button type="button" onclick="quick('What is the emergency request policy?')">Emergency policy</button></div>
+<form id="agentForm" class="agent-input"><input id="agentInput" placeholder="Ask the blood assistant..." autocomplete="off"><button class="primary">Send</button></form></div>
+<div class="panel trace"><div class="panel-head"><div><h3>Recent Activity</h3><small>Latest blood-bank actions</small></div><span class="badge">LIVE</span></div><div id="activityFeed"><p class="muted">No recent activity.</p></div></div></div></section>
+</main></div><script src="/static/app.js?v=5"></script></body></html>
